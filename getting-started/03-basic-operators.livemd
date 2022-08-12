@@ -1,0 +1,127 @@
+# Basic Operators
+
+## Intro
+
+In the [previous chapter](/getting-started/basic-types.html), we saw Elixir provides `+`, `-`, `*`, `/` as arithmetic operators, plus the functions `div/2` and `rem/2` for integer division and remainder.
+
+Elixir also provides `++` and `--` to manipulate lists:
+
+```elixir
+[1, 2, 3] ++ [4, 5, 6]
+```
+
+```elixir
+[1, 2, 3] -- [2]
+```
+
+String concatenation is done with `<>`:
+
+```elixir
+"foo" <> "bar"
+```
+
+Elixir also provides three boolean operators: `or`, `and` and `not`. These operators are strict in the sense that they expect something that evaluates to a boolean (`true` or `false`) as their first argument:
+
+```elixir
+true and true
+```
+
+```elixir
+false or is_atom(:example)
+```
+
+Providing a non-boolean will raise an exception:
+
+```elixir
+1 and true
+```
+
+`or` and `and` are short-circuit operators. They only execute the right side if the left side is not enough to determine the result:
+
+```elixir
+false and raise("This error will never be raised")
+```
+
+```elixir
+true or raise("This error will never be raised")
+```
+
+Besides these boolean operators, Elixir also provides `||`, `&&` and `!` which accept arguments of any type. For these operators, all values except `false` and `nil` will evaluate to true:
+
+<!-- livebook:{"break_markdown":true} -->
+
+`or`
+
+```elixir
+1 || true
+```
+
+```elixir
+false || 11
+```
+
+`and`
+
+```elixir
+nil && 13
+```
+
+```elixir
+true && 17
+```
+
+`not`
+
+```elixir
+!true
+```
+
+```elixir
+!1
+```
+
+```elixir
+!nil
+```
+
+As a rule of thumb, use `and`, `or` and `not` when you are expecting booleans. If any of the arguments are non-boolean, use `&&`, `||` and `!`.
+
+Elixir also provides `==`, `!=`, `===`, `!==`, `<=`, `>=`, `<` and `>` as comparison operators:
+
+```elixir
+1 == 1
+```
+
+```elixir
+1 != 2
+```
+
+```elixir
+1 < 2
+```
+
+The difference between `==` and `===` is that the latter is more strict when comparing integers and floats:
+
+```elixir
+1 == 1.0
+```
+
+```elixir
+1 === 1.0
+```
+
+In Elixir, we can compare two different data types:
+
+```elixir
+1 < :atom
+```
+
+The reason we can compare different data types is pragmatism. Sorting algorithms don't need to worry about different data types in order to sort. The sorting order, from lower to higher, is:
+
+`
+number, atom, reference, function, port, pid, tuple, map, list, bitstring
+`
+
+You don't actually need to memorize this; it's enough to know that it exists. For more information, check the [reference page on operators and ordering](https://hexdocs.pm/elixir/operators.html).
+
+In the next chapter, we are going to discuss pattern matching through the use of `=`, the match operator.
